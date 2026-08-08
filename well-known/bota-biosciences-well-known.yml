@@ -1,0 +1,91 @@
+generated: '2026-08-08'
+method: probed
+source: https://bota.bio/
+note: >-
+  Zero /.well-known/ documents are published on any Bota host. Probed the corporate site
+  (bota.bio), both product-brand sites (www.heliagenesis.com, www.yuccaelements.com) and
+  the SAION AI platform (saion.ai). No security.txt, no OIDC or OAuth discovery, no
+  api-catalog, no ai-plugin, no agent card at either the canonical
+  /.well-known/agent-card.json or the legacy /.well-known/agent.json. Recorded so a
+  future re-run does not re-litigate the miss. NOTE ON THE saion.ai 200s: saion.ai is a
+  Flutter/CanvasKit single-page app whose route catch-all answers HTTP 200 with the same
+  HTML shell for every unknown path. A control-path diff against
+  /zzz-definitely-not-a-real-path-9f8a7b returned the same shell, so every 200 below
+  marked shell:true is a false positive, not a document. Only robots.txt is real.
+  No apis.yml pointer of type WellKnown is wired from this file, because nothing was
+  found to point at.
+hosts:
+- host: https://bota.bio
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /openapi.json, status: 404}
+  - {path: /openapi.yaml, status: 404}
+  - {path: /swagger.json, status: 404}
+  - {path: /v1/openapi.json, status: 404}
+  - {path: /api-docs, status: 404}
+  - {path: /redoc, status: 404}
+  - {path: /graphql, status: 404}
+  - {path: /robots.txt, status: 200, note: 'Yoast-generated; User-agent * Disallow: (empty, i.e. allow all). Sitemap only.'}
+  - {path: /sitemap.xml, status: 301, note: redirects to /sitemap_index.xml, 19 pages, no developer section}
+  - {path: /wp-json/, status: 200, note: stock WordPress REST API, 265 routes across wp/v2 and plugin namespaces; CMS plumbing, not a product API}
+- host: https://www.heliagenesis.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /openapi.json, status: 404}
+- host: https://www.yuccaelements.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /openapi.json, status: 404}
+- host: https://saion.ai
+  documents:
+  - {path: /.well-known/security.txt, status: 200, shell: true}
+  - {path: /.well-known/openid-configuration, status: 200, shell: true}
+  - {path: /.well-known/oauth-authorization-server, status: 200, shell: true}
+  - {path: /.well-known/oauth-protected-resource, status: 200, shell: true}
+  - {path: /.well-known/api-catalog, status: 200, shell: true}
+  - {path: /.well-known/ai-plugin.json, status: 200, shell: true}
+  - {path: /.well-known/agent-card.json, status: 200, shell: true}
+  - {path: /.well-known/agent.json, status: 200, shell: true}
+  - {path: /llms.txt, status: 200, shell: true}
+  - {path: /openapi.json, status: 200, shell: true}
+  - {path: /swagger.json, status: 200, shell: true}
+  - {path: /graphql, status: 200, shell: true}
+  - {path: /mcp, status: 200, shell: true}
+  - {path: /zzz-definitely-not-a-real-path-9f8a7b, status: 200, shell: true, note: control path proving the catch-all}
+  - path: /robots.txt
+    status: 200
+    file: bota-biosciences-saion-robots.txt
+    note: >-
+      REAL document. Cloudflare-managed content-signals robots.txt carrying
+      "Content-Signal: search=yes, ai-train=no, use=reference" for User-agent *, which is
+      otherwise Allow: /, plus explicit Disallow rules for Amazonbot,
+      Applebot-Extended, Bytespider, CCBot, ClaudeBot, Google-Extended, GPTBot,
+      meta-externalagent and CloudflareBrowserRenderingCrawler. DEFECT: the origin
+      served 63,563 bytes — the 1,836 bytes of genuine directives followed by the entire
+      Flutter SPA HTML shell, appended by the same route catch-all. Only the directive
+      portion is retained in the saved file; the appended markup was discarded and the
+      truncation is documented in the file itself. No ContentSignal or SecurityTxt
+      pointer is wired from it: this is a CDN-managed default rather than a
+      developer-facing publication by Bota, and crediting it would overstate an intent
+      the company has not expressed anywhere else.
+x-evidence:
+  fetched: '2026-08-08'
+  method: direct HTTPS probes with a browser user-agent
+  control_path_diff: >-
+    performed on saion.ai; unknown paths and probe paths return the same SPA shell, so
+    saion.ai 200s are not evidence of a document

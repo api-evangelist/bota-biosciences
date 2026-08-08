@@ -1,17 +1,42 @@
 aid: bota-biosciences
 name: Bota Biosciences
-description: 'Bota Biosciences is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Bota Biosciences (Bota Bio, 恩和科技) is an industrial and synthetic biology
+  company that applies AI-driven computation and laboratory automation to bio-manufacturing.
+  Its in-house Bota Biofoundry and Cell2Cloud platforms combine computational algorithms,
+  non-model industrial strain engineering, rapid iterative enzyme engineering and performance
+  protein design to shorten design-build-test-learn cycles, and in March 2026 it launched
+  SAION AI, a three-layer "Physical AI" platform (cognition, orchestration, execution)
+  that drives laboratory hardware through a proprietary Biological Protocol Language.
+  Bota commercializes this work as physical ingredients rather than software: Purtect
+  bio-preservatives (nisin, natamycin, ε-poly-lysine, lysozyme), Prorylia biomimetic
+  proteins and Re² Coffea Arabica peptides, sold through its HeliaGenesis food and
+  nutrition brand and its YuccaElements personal care brand, with partnerships including
+  BASF, Proya, Syensqo and Puratos. Founded in 2019 with operations in Hangzhou, China
+  and the San Francisco Bay Area, Bota publishes no developer portal, no public API
+  documentation, no SDKs and no machine-readable specification; its computational software
+  is internal laboratory tooling and its SAION AI application is reachable only through
+  a login with an administrator-managed account whitelist.'
 url: https://raw.githubusercontent.com/api-evangelist/bota-biosciences/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enriched
 specificationVersion: '0.20'
 created: '2026-08-08'
 modified: '2026-08-08'
+image: https://bota.bio/wp-content/uploads/2024/08/bota-logo.png
 tags:
 - Company
+- Biotechnology
+- Synthetic Biology
+- Bio-Manufacturing
+- Industrial Biotechnology
+- Enzyme Engineering
+- Ingredients
+- Food and Nutrition
+- Personal Care
+- Artificial Intelligence
+- China
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -19,5 +44,112 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/bota-biosciences-domain-security.yml
 - type: Website
+  url: https://bota.bio/
+- type: About
+  url: https://bota.bio/about-bota/
+- type: Technology
+  url: https://bota.bio/bota-biofoundry/
+- type: Product
+  url: https://bota.bio/performance-protein-solutions/
+- type: Brand
+  url: https://www.heliagenesis.com/
+- type: Brand
+  url: https://www.yuccaelements.com/
+- type: Contact
+  url: https://bota.bio/contact/
+- type: Blog
+  url: https://bota.bio/bota-news/
+- type: BlogRSS
+  url: https://bota.bio/feed/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/botabio
+- type: SecondaryMarket
   url: https://www.hiive.com/securities/bota-biosciences-stock
+- type: LLMsTxt
+  url: llms/bota-biosciences-llms.txt
+x-enrichment:
+  date: '2026-08-08'
+  status: minimal
+  artifacts_added: 3
+  pass: local-v1
+  contract_discovery:
+    openapi: not-published
+    swagger: none
+    graphql: none
+    asyncapi: none
+    mcp: none
+    agent_card: none
+    note: >-
+      Full STEP 0b contract discovery run 2026-08-08 across every host Bota publishes:
+      bota.bio (the corporate site), www.heliagenesis.com and www.yuccaelements.com (the
+      two product brands), saion.ai / saionai.com (the SAION AI platform), and the
+      assets-internal-prod.bota.bio release CDN. On bota.bio and both brand sites,
+      /llms.txt, /openapi.json, /openapi.yaml, /swagger.json, /api-docs, /redoc,
+      /graphql, /.well-known/security.txt, /.well-known/openid-configuration,
+      /.well-known/oauth-authorization-server, /.well-known/api-catalog,
+      /.well-known/ai-plugin.json, /.well-known/agent-card.json and
+      /.well-known/agent.json all return 404. The complete Yoast sitemap for bota.bio is
+      19 pages — technology, solutions, products, about, news and contact, in English and
+      Chinese — with no developer, docs or API section. No GitHub organization exists
+      (botabio, bota-bio and BotaBiosciences all 404 on the GitHub API, and an org search
+      for "bota bio" returns zero results). The only machine-readable surface bota.bio
+      serves is the stock WordPress REST API at /wp-json/ (265 routes across wp/v2 and
+      plugin namespaces such as yoast/v1, wordfence/v1 and forminator/v1) — CMS
+      plumbing, not a product API, and deliberately not registered as one.
+    saion_note: >-
+      SAION AI (saion.ai, confirmed as Bota's by its assets-internal-prod.bota.bio asset
+      base and bota-logo.svg) is a Flutter/CanvasKit single-page application, release
+      1.3.90 built 2026-08-07, that renders its entire interface to a WebGL canvas — the
+      served HTML carries no readable content at all. Its route catch-all answers HTTP
+      200 with the same SPA shell for every path probed, including /openapi.json,
+      /swagger.json, /graphql, /mcp and every /.well-known/* path; a control-path diff
+      against /zzz-definitely-not-a-real-path-9f8a7b returned a byte-identical-length
+      shell, so none of those 200s is a real document. saion.ai/robots.txt is genuine and
+      carries a Cloudflare-managed content-signals policy
+      (Content-Signal: search=yes, ai-train=no, use=reference) plus explicit Disallow
+      rules for ClaudeBot, GPTBot, CCBot, Google-Extended, Bytespider, Amazonbot,
+      Applebot-Extended and meta-externalagent; User-agent * is Allow: /. Access to the
+      application itself is login-gated, and the backend carries an administrator-managed
+      email/domain whitelist, so there is no self-serve developer access.
+    not_harvested: >-
+      A complete OpenAPI 3.1.0 document for the SAION backend (title "Saion API", 346
+      paths, 395 operations, 521 schemas, FastAPI-generated) is anonymously fetchable,
+      together with a live Swagger UI and ReDoc, on a host Bota names "internal-api". It
+      was deliberately NOT harvested into openapi/, NOT wired as a type: OpenAPI pointer,
+      and its endpoints are not enumerated in any public artifact in this repository.
+      Bota publishes no developer program, no API reference and no signup for API access:
+      this contract is exposed, not published, and scoring it would credit Bota with a
+      developer surface it never offered while republishing an internal contract that
+      includes its full administrative endpoint inventory. The API itself is properly
+      protected — the spec declares a global BearerAuth requirement and 376 of 395
+      operations carry an explicit security requirement — so this is an exposure of the
+      contract document, not of data, and no protected endpoint was called. Bota also
+      publishes no security.txt and no vulnerability-disclosure channel on any of its
+      hosts, so there is no route to report this to them automatically; it is flagged
+      here for a human to disclose directly. Re-runs must not "fix" this by harvesting
+      the spec.
+x-coverage:
+  state: gated
+  reason: customer-only-docs
+  detail: >-
+    Bota's only software product, the SAION AI platform at saion.ai, is a Flutter canvas
+    application behind a login whose backend enforces an administrator-managed email and
+    domain whitelist, so no reference, spec or signup is reachable without an approved
+    account — saion.ai/openapi.json answers 200 but returns the same single-page-app
+    shell as a nonsense control path, not a specification — while the corporate site
+    bota.bio publishes marketing and news pages only.
+  evidence:
+  - url: https://bota.bio/openapi.json
+    status: 404
+  - url: https://bota.bio/.well-known/agent-card.json
+    status: 404
+  - url: https://saion.ai/openapi.json
+    status: 200
+  - url: https://saion.ai/robots.txt
+    status: 200
+  - url: https://api.github.com/orgs/botabio
+    status: 404
+  checked: '2026-08-08'
