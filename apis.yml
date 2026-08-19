@@ -21,7 +21,7 @@ x-type: company
 x-source: harvest:secondary-market
 x-tier: profiled
 x-tier-reason: enriched
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-08-08'
 modified: '2026-08-08'
 image: https://bota.bio/wp-content/uploads/2024/08/bota-logo.png
